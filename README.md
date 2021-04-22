@@ -1,6 +1,4 @@
-# Natural_Language_Processing_Notes
-
-### Roadmap for Natural Language Processing
+# Roadmap for Natural Language Processing
 
 
 - **Step:1** Text Preprocessing Level-1 Tokenization, Lemmatization, Stop Words.

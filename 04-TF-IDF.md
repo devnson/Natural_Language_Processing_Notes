@@ -20,7 +20,10 @@ We wll agian use the same vocabulary we had built in the Bag-of-Words model to s
 - Review#1. **This movie is very scary and long**
 - Review#2.  **This movie is not scary and is slow**
 - Review#3. **This movie is spooky and good**
+
+
 Here,
+
 - Vocabulary: 'This', 'movie', 'is', 'very', 'scary', 'and', 'long','not','slow','spooky','good'
 - Number of words in Review 2 = 8
 - TF for the word 'this' = (number of times 'this' appears in review 2) / (number of terms in review 2) = 1/8

@@ -39,8 +39,8 @@ In other words, Lemmatization is a method responsible for grouping different inf
 
 For example, Lemmatization clearly identifies the base form of **"trouble"** to **"trouble"** denoting some meaning whereas, Stemming will cut out **"ed"** part and convert it into **"troubl"** which has the wrong meaning and spelling errors.
 
-**troubled** ---> Lemmatization ---> **'trouble'**, and error
-**troubled** ---> Stemming ----> **troubl**
+- **troubled** ---> Lemmatization ---> **'trouble'**, and error
+- **troubled** ---> Stemming ----> **troubl**
 
 ## Difference between Stemming and Lematization
 

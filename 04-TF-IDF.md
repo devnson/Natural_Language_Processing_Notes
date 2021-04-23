@@ -15,8 +15,11 @@ Let's first understand Term Frequent (TF). It is a measure of how frequently a t
 
 **Here, in the numerator, n is the number of times the term "t" appears in the document "d". Thus, each document and term would have its own TF value.**
 
-We wll agian use the same vocabulary we had built in the Bag-of-Words model to show how to calculate the TF for Review#2.  **This movie is not scary and is slow**
+We wll agian use the same vocabulary we had built in the Bag-of-Words model to show how to calculate the TF for 
 
+- Review#1. **This movie is very scary and long**
+- Review#2.  **This movie is not scary and is slow**
+- Review#3. **This movie is spooky and good**
 Here,
 - Vocabulary: 'This', 'movie', 'is', 'very', 'scary', 'and', 'long','not','slow','spooky','good'
 - Number of words in Review 2 = 8

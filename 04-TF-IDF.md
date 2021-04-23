@@ -54,7 +54,7 @@ IDF is a measure of how important a term is. We need the IDF value because compu
 
 We can calculate the IDF values for the all the words in Review 2:
 
-**IDF('this') = log(number of documents / number of documents containing the word 'this' )
+**IDF('this') = log(number of documents / number of documents containing the word 'this' )**
 
 = log (3/3) = log(1) = 0
 

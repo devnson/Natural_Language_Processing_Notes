@@ -90,3 +90,8 @@ On the other hand, CBOW is faster and has better representations for more freque
 The above explanation is a very basic one. It just gives you a high-level idea of what word embeddings are and how Word2Vec works.
 
 There’s a lot more to it. For example, to make the algorithm computationally more efficient, tricks like Hierarchical Softmax and Skip-Gram Negative Sampling are used.
+
+
+**More**
+
+https://jalammar.github.io/illustrated-word2vec/

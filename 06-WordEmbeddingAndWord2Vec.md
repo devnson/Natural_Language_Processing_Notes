@@ -95,3 +95,6 @@ There’s a lot more to it. For example, to make the algorithm computationally m
 **More**
 
 https://jalammar.github.io/illustrated-word2vec/
+https://lilianweng.github.io/lil-log/2017/10/15/learning-word-embedding.html
+https://www.tensorflow.org/tutorials/text/word_embeddings
+https://ruder.io/word-embeddings-1/

@@ -1,54 +1,12 @@
-## Part I: Attention understanding
+![image](https://user-images.githubusercontent.com/23405520/123618931-63d30f80-d828-11eb-9a9a-82b471fd270b.png)
+![image](https://user-images.githubusercontent.com/23405520/123618985-73525880-d828-11eb-8daf-ea7bb63b513a.png)
+![image](https://user-images.githubusercontent.com/23405520/123619045-7fd6b100-d828-11eb-8bf0-3fb166e5bf85.png)
+![image](https://user-images.githubusercontent.com/23405520/123619095-8fee9080-d828-11eb-815d-a1dd093ebcec.png)
+![image](https://user-images.githubusercontent.com/23405520/123619170-a563ba80-d828-11eb-9e30-9eab058510b4.png)
+![image](https://user-images.githubusercontent.com/23405520/123619225-af85b900-d828-11eb-9d83-e30f72ae3112.png)
 
-Just like in “Attention” meaning, in real life when we looking at a picture or hearing the song, we usally focus more on some parts and pay less attention in the rest. The Attention mechanism in Deep Learning is also the same flow, paying greater attention to certain parts when processing the data
-
-Attention is one component of a network’s architecture.
-
-Follow the specific tasks, the encoder & decoder will be different. In machine translation, the encoder often set to LSTM/GRU/Bi_RNN, in image captioning, the encoder often set to CNN.
-
-Such as for the task: Translating the sentence: 'le chat est noir' to English sentence (the cat is black)
-
-The input has 4 words, plus EOS token at the end (stop word) corresponding 5 time steps in translating to English. Each time step, Attention is applied by assigning weights to input words, the more important words, the bigger weights will be assigned (Done by backprob gradient process). So There are 5 differrent times weights assigned (coresponding to 5 time steps) The general architecture in seq2seq as follow:
-
-image.png
-
-Without attention, The input in decoder based on 2 component: the initial decoder input (often we set it to EOS token first (start word)) and the last hidden encoder. This way has the drawback in case some informations of very first encoder cell would be loss during the process. To handle this problem, the attention weight is added to all encoder outputs.
-
-Capture.JPG
-As we can see, through each decoder output word, the attention weights colors of encoder input is changed differently along itself importance
-
-You may ask how can we appropriately set the weight to encoder outputs. The answer is: we just randomly set the weights, and the backpropagation gradient process will take care about it during the training. What we have to do is correctly build the forward computational graph.
-
-Capture1.JPG
-
-After attention weight was caculated, now we have three components: decoder input, decoder hidden, (attention weights * encoder outputs), we feed them to decoder to return decoder output
-
-There are two primary types of attention: Bahdanau Attention vs Luong Attention. Luong attention is built on top of Bahdanau attention and have proved better scores in several tasks. This kernel is focus on Luong attention.
-
-import torch
-import torch.nn as nn
-Computational graph for Luong attention
-image.png
-
-Step 1: Caculating encoder hidden state
-
-class Encoder_LSTM(nn.Module):
-    def __init__(self, input_size, hidden_size, n_layers=1, drop_prob=0):
-        super(EncoderLSTM, self).__init__()
-        self.hidden_size = hidden_size
-        self.n_layers = n_layers
-        self.embedding = nn.Embedding(input_size, hidden_size)
-        self.lstm = nn.LSTM(hidden_size, hidden_size, n_layers, dropout=drop_prob, batch_first=True)
-
-    def forward(self, inputs, hidden):
-        # Embed input words
-        embedded = self.embedding(inputs)
-        # Pass the embedded word vectors into LSTM and return all outputs
-        output, hidden = self.lstm(embedded, hidden)
-        return output, hidden
-Step 2-->6
-
-class Luong_Decoder(nn.Module):
+`Python 
+  class Luong_Decoder(nn.Module):
     def __init__(self, hidden_size, output_size, attention, n_layers=1, drop_prob=0.1):
         super(LuongDecoder, self).__init__()
         self.hidden_size = hidden_size
@@ -84,22 +42,13 @@ class Luong_Decoder(nn.Module):
         output = torch.cat((lstm_out, context_vector),-1)
         # Pass concatenated vector through Linear layer acting as a Classifier
         output = F.log_softmax(self.classifier(output[0]), dim=1)
-        return output, hidden, attn_weights
-Exploring the attention class in STEP 3: Caculating alignment score
+        return output, hidden, attn_weights`
+`
 
-In Luong Attention, there are 3 different ways (dot, general, concat) to caculate the alignment score.
+        
+![image](https://user-images.githubusercontent.com/23405520/123619502-f5db1800-d828-11eb-8b0e-95eeb434087e.png)
 
-1. Dot function
-  This is the simplest of the functions: alignment score calculated by multiplying the hidden encoder and the hidden decoder.
-  SCORE = H(encoder) * H(decoder)
-2. General function
-  similar to the dot function, except that a weight matrix is added into the equation
-  SCORE = W(H(encoder) * H(decoder))
-3. Concat function
-  Concating encoder and decoder first, the feed to nn.Linear and activation it, finally we add W2 to get final Score
-  SCORE = W2 * tanh(W1(H(encoder) + H(decoder)))
-Implementing attention class:
-
+`Python
 class Luong_attention_layer(nn.Module):
     def __init__(self, method, hidden_size):
         super(Luong_attention_layer, self).__init__()
@@ -139,11 +88,8 @@ class Luong_attention_layer(nn.Module):
 
         # Softmanx the attn_energy to return the weight corresponding to each encoder output
         return F.softmax(attn_energy, dim=1).unsqueeze(1)
-Part II: Building chatbot seq2seq with Luong attention mechanism
-The step by step for building chatbot with attention as follow:Capture%204.JPG
+`
 
-After running this kernel. you can play with chatbot and have some fun with him like this:)) :
+![image](https://user-images.githubusercontent.com/23405520/123619674-215e0280-d829-11eb-96c7-d5b6343b53b7.png)
 
-Capture6.JPG
-
-The code is based on : https://pytorch.org/tutorials/beginner/chatbot_tutorial.html. I have modified this toturial on something because the Author used some pytorch features that currently depressed. Through this kernel, I added explaination on my own understanding step by step so you might find it friendly to understand all the concepts.
+![image](https://user-images.githubusercontent.com/23405520/123619713-2ae76a80-d829-11eb-9bf5-f5262d148c3d.png)

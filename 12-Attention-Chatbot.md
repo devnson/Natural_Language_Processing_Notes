@@ -5,8 +5,9 @@
 ![image](https://user-images.githubusercontent.com/23405520/123619170-a563ba80-d828-11eb-9e30-9eab058510b4.png)
 ![image](https://user-images.githubusercontent.com/23405520/123619225-af85b900-d828-11eb-9d83-e30f72ae3112.png)
 
-`Python 
-  class Luong_Decoder(nn.Module):
+``` Python 
+
+class Luong_Decoder(nn.Module):
     def __init__(self, hidden_size, output_size, attention, n_layers=1, drop_prob=0.1):
         super(LuongDecoder, self).__init__()
         self.hidden_size = hidden_size
@@ -43,12 +44,12 @@
         # Pass concatenated vector through Linear layer acting as a Classifier
         output = F.log_softmax(self.classifier(output[0]), dim=1)
         return output, hidden, attn_weights`
-`
+```
 
         
 ![image](https://user-images.githubusercontent.com/23405520/123619502-f5db1800-d828-11eb-8b0e-95eeb434087e.png)
 
-`Python
+```Python
 class Luong_attention_layer(nn.Module):
     def __init__(self, method, hidden_size):
         super(Luong_attention_layer, self).__init__()
@@ -88,7 +89,7 @@ class Luong_attention_layer(nn.Module):
 
         # Softmanx the attn_energy to return the weight corresponding to each encoder output
         return F.softmax(attn_energy, dim=1).unsqueeze(1)
-`
+```
 
 ![image](https://user-images.githubusercontent.com/23405520/123619674-215e0280-d829-11eb-96c7-d5b6343b53b7.png)
 
